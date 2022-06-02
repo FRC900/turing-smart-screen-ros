@@ -3,32 +3,30 @@
 
 #include <cstdint>
 #include <string>
-#include "stb_truetype.h"
+#include <termios.h>
+#include "font.h"
 
-#define BAUDRATE B115200
-#define CLEAR          102
-#define SET_BRIGHTNESS 110
-#define DISPLAY_BITMAP 197
-
-#define WIDTH  320
-#define HEIGHT 480
+struct rgb {
+    float r, g, b;
+};
 
 class lcd {
-    int fd;
-    stbtt_fontinfo font;
-    uint8_t *font_buf;
-    float scale;
-    int char_width, char_height, descent, xoff;
-    uint8_t screen[HEIGHT][WIDTH] = {};
+    const static int WIDTH = 320;
+    const static int HEIGHT = 480;
+    const static int PIXELS = WIDTH * HEIGHT;
+    const static int BAUDRATE = B115200;
+    const static int CLEAR = 102;
+    const static int SET_BRIGHTNESS = 110;
+    const static int DISPLAY_BITMAP = 197;
 
+    int fd;
+    uint16_t screen[PIXELS] = {};
     void send_command(uint8_t cmd, int x, int y, int ex, int ey);
-    uint16_t pack_rgb(uint8_t signal, float r, float g, float b);
-    void rasterize_char(char c, int bottom, int col);
+    uint16_t pack_rgb(uint8_t signal, rgb c);
 public:
-    void init_lcd(char *dev);
-    void init_font(char *path);
-    void write_line(std::string text, int line);
-    void write_char(char c, int line, int col);
+    lcd(char *dev);
+    void write_text(font &font, std::string text, int line, int col, rgb color);
+    ~lcd();
 };
 
 #endif // LCD_H_
