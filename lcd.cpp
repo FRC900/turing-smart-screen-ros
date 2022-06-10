@@ -54,9 +54,6 @@ lcd::lcd(char *dev) {
      * and returns up to the number of bytes requested. */
     tty.c_cc[VMIN] = 64;
     tcsetattr(fd, TCSANOW, &tty);
-
-    send_command(CLEAR, 0, 0, 0, 0);
-    send_command(SET_BRIGHTNESS, 240, 0, 0, 0);
 }
 
 void lcd::write_text(font &font, std::string text, int line, int col, rgb color) {
@@ -90,6 +87,14 @@ void lcd::write_text(font &font, std::string text, int line, int col, rgb color)
 
     send_command(DISPLAY_BITMAP, xpos, ypos, xpos + width - 1, ypos + font.char_height - 1);
     write(fd, screen, width * font.char_height * 2);
+}
+
+void lcd::clear() {
+    send_command(CLEAR, 0, 0, 0, 0);
+}
+
+void lcd::set_brightness(int brightness) {
+    send_command(SET_BRIGHTNESS, brightness, 0, 0, 0);
 }
 
 lcd::~lcd() {

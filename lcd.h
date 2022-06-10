@@ -26,6 +26,8 @@ class lcd {
 public:
     lcd(char *dev);
     void write_text(font &font, std::string text, int line, int col, rgb color);
+    void clear();
+    void set_brightness(int brightness);
     ~lcd();
 };
 
