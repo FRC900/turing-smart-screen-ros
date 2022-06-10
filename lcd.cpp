@@ -80,12 +80,10 @@ void lcd::write_text(font &font, std::string text, int line, int col, rgb color)
     for (size_t i = 0; i < text.size(); i++) {
         glyph &g = font[text[i]];
         int glyph_offset = i * font.char_width;
-        for (int y = 0; y < g.dim.y; y++) {
-            for (int x = 0; x < g.dim.x; x++) {
-                /* Glyph offset + line offset + pixel offset */
-                int j = glyph_offset + (y + g.box_off.y) * width + x + g.box_off.x;
-                screen[j] = pack_rgb(g(x, y), color);
-            }
+        for (auto [p, signal] : g) {
+            /* Glyph offset + line offset + pixel offset */
+            int j = glyph_offset + (p.y * width) + p.x;
+            screen[j] = pack_rgb(signal, color);
         }
     }
 

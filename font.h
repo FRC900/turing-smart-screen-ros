@@ -2,6 +2,8 @@
 #define FONT_H_
 
 #include <cstdint>
+#include <string>
+#include <functional>
 #include "stb_truetype.h"
 
 struct point {
@@ -18,7 +20,48 @@ struct glyph {
     /* Offset from bitmap origin to bounding box origin */
     point box_off;
 
-    uint8_t operator()(int x, int y);
+    struct Iterator {
+        using iterator_category = std::input_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+        using value_type        = std::pair<point, uint8_t>;
+        using pointer           = std::pair<point, uint8_t>*;
+        using reference         = std::pair<point, uint8_t>&;
+
+        Iterator(glyph &glyph) : g(glyph) {
+            pos.x = 0;
+            pos.y = 0;
+        };
+
+        value_type operator*() const {
+            int i = (pos.y + g.ptr_off.y) * g.stride + (g.ptr_off.x + pos.x);
+            point p = {pos.x + g.box_off.x, pos.y + g.box_off.y};
+            return std::make_pair(p, g.bitmap[i]);
+        }
+
+        void operator++() {
+            pos.x++;
+            if (pos.x == g.dim.x) {
+                pos.x = 0;
+                pos.y++;
+            }
+        }
+
+        /* Check if current iterator is done */
+        friend bool operator!= (const Iterator& a, const Iterator& b) {
+            return a.pos.y < a.g.dim.y && a.pos.x < a.g.dim.x;
+        };
+
+    private:
+        point pos;
+        glyph &g;
+    };
+
+    Iterator begin() {
+        return Iterator(*this);
+    }
+    Iterator end() {
+        return Iterator(*this);
+    };
 };
 
 class font {

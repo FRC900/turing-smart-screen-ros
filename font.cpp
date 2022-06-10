@@ -33,11 +33,6 @@ glyph &font::operator[](char c) {
     return g;
 }
 
-uint8_t glyph::operator()(int x, int y) {
-    int i = (y + ptr_off.y) * stride + (ptr_off.x + x);
-    return bitmap[i];
-}
-
 font::font(char *path, int scale) {
     struct stat st;
     if (stat(path, &st) < 0) {
