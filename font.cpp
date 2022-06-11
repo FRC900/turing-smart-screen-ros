@@ -64,7 +64,7 @@ font::font(char *path, int scale) {
 }
 
 font::~font() {
-    free(font_buf);
+    delete[] font_buf;
     for (glyph &g : glyphs) {
         free(g.bitmap);
     }
