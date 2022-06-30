@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  <name>turing_smart_screen</name>
+  <version>0.0.0</version>
+  <description>The turing_smart_screen package</description>
+  <maintainer email="programmers@team900.org">FRC Team 900 Programmers</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>std_srvs</run_depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>rostest</test_depend>
+
+  <export>
+    <rosdoc config="rosdoc.yaml" />
+  </export>
+</package>
