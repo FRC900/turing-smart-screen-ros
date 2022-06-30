@@ -48,7 +48,7 @@ struct glyph {
 
         /* Check if current iterator is done */
         friend bool operator!= (const Iterator& a, const Iterator& b) {
-            return a.pos.y < a.g.dim.y && a.pos.x < a.g.dim.x;
+            return a.pos.y < a.g.dim.y;
         };
 
     private:
