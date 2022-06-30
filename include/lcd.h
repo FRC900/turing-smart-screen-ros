@@ -2,12 +2,15 @@
 #define LCD_H_
 
 #include <cstdint>
-#include <string>
+#include <string_view>
 #include <termios.h>
 #include "font.h"
 
 struct rgb {
     float r, g, b;
+    bool operator!=(const rgb& rhs) const {
+        return (r == rhs.r) && (g == rhs.g) && (b == rhs.b);
+    }
 };
 
 class lcd {
@@ -25,7 +28,7 @@ class lcd {
     uint16_t pack_rgb(uint8_t signal, rgb c);
 public:
     lcd(char *dev);
-    void write_text(font &font, std::string text, int line, int col, rgb color);
+    void write_text(font &font, std::string_view text, int line, int col, rgb color);
     void clear();
     void set_brightness(int brightness);
     ~lcd();

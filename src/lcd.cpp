@@ -4,7 +4,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
-#include <string.h>
+#include <string_view>
 #include "font.h"
 
 void lcd::send_command(uint8_t cmd, int x, int y, int ex, int ey) {
@@ -56,7 +56,7 @@ lcd::lcd(char *dev) {
     tcsetattr(fd, TCSANOW, &tty);
 }
 
-void lcd::write_text(font &font, std::string text, int line, int col, rgb color) {
+void lcd::write_text(font &font, std::string_view text, int line, int col, rgb color) {
     int xpos = col * font.char_width;
     int ypos = line * font.char_height;
 
