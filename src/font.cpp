@@ -36,12 +36,12 @@ glyph &font::operator[](char c) {
 font::font(char *path, int scale) {
     struct stat st;
     if (stat(path, &st) < 0) {
-        perror("stat");
+        perror("Failed to stat font file");
         exit(1);
     }
     FILE *fp = fopen(path, "rb");
     if (fp == NULL) {
-        perror("fopen");
+        perror("Failed to open font file");
         exit(1);
     }
     font_buf = new uint8_t[st.st_size];

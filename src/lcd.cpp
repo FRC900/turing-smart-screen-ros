@@ -34,7 +34,7 @@ uint16_t lcd::pack_rgb(uint8_t signal, rgb c) {
 lcd::lcd(char *dev) {
     fd = open(dev, O_RDWR | O_NOCTTY | O_SYNC);
     if (fd < 0) {
-        perror("open");
+        perror("Failed to open serial console");
         exit(1);
     }
 
@@ -61,11 +61,11 @@ void lcd::write_text(font &font, std::string_view text, int line, int col, rgb c
     int ypos = line * font.char_height;
 
     if ((line + 1) * font.char_height > HEIGHT) {
-        fputs("text is beyond bottom of bounding box\n", stderr);
+        fputs("Text is beyond bottom of bounding box\n", stderr);
         exit(1);
     }
     if ((text.size() + col) * font.char_width > WIDTH) {
-        fputs("text is beyond side of bounding box\n", stderr);
+        fputs("Text is beyond side of bounding box\n", stderr);
         exit(1);
     }
 

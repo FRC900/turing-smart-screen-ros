@@ -34,7 +34,6 @@ int main(int argc, char *argv[]) {
     /* Print help and exit if run without options or with one of "-h", "help", or "--help". */
     if (argc < 2 || !strcmp(argv[1], "-h") || !strcmp(argv[1], "help") || !strcmp(argv[1], "--help")) {
         usage();
-        exit(0);
     } else if (!strcmp(argv[1], "brightness")) {
         char *out = DEFAULT_OUT;
         float brightness = -1;
