@@ -5,7 +5,7 @@
   <description>The turing_smart_screen package</description>
   <maintainer email="programmers@team900.org">FRC Team 900 Programmers</maintainer>
 
-  <license>BSD</license>
+  <license>Public Domain</license>
 
   <buildtool_depend>catkin</buildtool_depend>
 
