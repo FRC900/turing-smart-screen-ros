@@ -7,8 +7,8 @@
 #include <turing_smart_screen/line.h>
 #include "ros/ros.h"
 
-font font((char *)"courier.ttf", 20);
-lcd display((char *)"/dev/ttyACM0");
+font font((char *)"/usr/share/fonts/courier.ttf", 20);
+lcd display((char *)"/dev/TURING");
 
 struct line {
     rgb color;
@@ -52,12 +52,10 @@ void callback(turing_smart_screen::line line) {
 }
 
 int main(int argc, char *argv[]) {
-    ROS_INFO("starting turing_smart_screen node");
-    display.clear();
-
     ros::init(argc, argv, "lcd");
     ros::NodeHandle nh("~");
     ros::Subscriber sub = nh.subscribe("/status", 1, callback);
 
+    display.clear();
     ros::spin();
 }
