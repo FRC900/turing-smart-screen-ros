@@ -1,3 +1,4 @@
+#include "ros/ros.h"
 #include "font.h"
 #include "lcd.h"
 #include <unistd.h>
@@ -5,7 +6,6 @@
 #include <sys/signalfd.h>
 #include <sys/epoll.h>
 #include <turing_smart_screen/line.h>
-#include "ros/ros.h"
 
 font font((char *)"/usr/share/fonts/courier.ttf", 20);
 lcd display((char *)"/dev/TURING");

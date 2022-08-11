@@ -3,7 +3,7 @@ project(turing_smart_screen)
 
 include("../cmake_modules/CMakeOpt.cmake")
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs genmsg)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs genmsg message_generation)
 
 add_message_files(FILES line.msg)
 
